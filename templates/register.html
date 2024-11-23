@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Поликлиника - Регистрация</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<header>
+    <h1>Поликлиника - Регистрация</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Главная</a></li>
+            <li><a href="{{ url_for('register_patient') }}">Записаться на прием</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="appointment-container">
+    <section>
+        <h2>Запись на прием</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="post" action="{{ url_for('register_patient') }}">
+            {#            <label for="first_name">Имя:</label>#}
+            {#            <input type="text" id="first_name" name="first_name" required>#}
+            <div class="col-sm-6">
+                <label for="firstName" class="form-label">Имя</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="" value="" required="">
+                <div class="invalid-feedback">
+                    Valid first name is required.
+                </div>
+            </div>
+
+            {#            <label for="last_name">Фамилия:</label>#}
+            {#            <input type="text" id="last_name" name="last_name" required>#}
+            <div class="col-sm-6">
+                <label for="lastName" class="form-label">Фамилия</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="" value="" required="">
+                <div class="invalid-feedback">
+                    Valid last name is required.
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="doctor_name" class="form-label">Врач:</label>
+                <select id="doctor_name" name="doctor_name" required class="form-control">
+                    <option value="" class="form-control">Выберите врача</option>
+                    {% for doctor in doctors %}
+                        <option value="{{ doctor.name }}">{{ doctor.name }} ({{ doctor.specialization }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-sm-6">
+                <div style="margin-top: 7px">
+                <label for="appointment_date" class="form-label">Дата:</label>
+                <input type="date" id="appointment_date" name="appointment_date" required class="form-control">
+
+                <label for="appointment_time">Время:</label>
+                <input type="time" id="appointment_time" name="appointment_time" required class="form-control"><br>
+                </div>
+                {#            <button type="submit">Записаться</button>#}
+                <button type="submit" class="btn btn-primary">Записаться</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2023 Поликлиника. Все права защищены.</p>
+</footer>
+</body>
+</html>
